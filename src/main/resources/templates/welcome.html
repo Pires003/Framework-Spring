@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo</title>
+
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body th:style="'background-image: url(/' + ${background} + ');'">
+
+    <div class="overlay">
+        <div class="container">
+
+            <!-- 🔥 CARD PRINCIPAL -->
+            <div class="card principal">
+
+                <h1 th:text="'Bem-vindo, ' + ${nome}"></h1>
+
+                <h2 th:text="'Aura/Ki: ' + ${aura}"></h2>
+                <h2 th:text="'Nível: ' + ${nivel}"></h2>
+                <h2 th:text="'Transformação: ' + ${transformacao}"></h2>
+
+                <!-- 🔥 BARRA DE PROGRESSO -->
+                <div class="progress-box">
+                    <p>Progresso para a próxima forma</p>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill"
+                             th:style="'width: ' + ${progresso} + '%;'">
+                        </div>
+                    </div>
+
+                    <p th:text="${progresso} + '%'"></p>
+                </div>
+
+                <!-- 🔥 BOTÃO CORRIGIDO -->
+                <button type="button" class="botao-voltar" onclick="voltarLogin()">
+                    Voltar para login
+                </button>
+
+            </div>
+
+            <!-- 🏆 LEADERBOARD -->
+            <div class="card leaderboard">
+
+                <h2>Leaderboard</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Usuário</th>
+                            <th>Aura</th>
+                            <th>Nível</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="u, stat : ${ranking}">
+                            <td th:text="${stat.count}"></td>
+                            <td th:text="${u.nome}"></td>
+                            <td th:text="${u.aura}"></td>
+                            <td th:text="${u.nivel}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🔥 SCRIPT DE VOLTA -->
+    <script>
+        function voltarLogin() {
+            sessionStorage.setItem("focarSenha", "true");
+            window.location.href = "/";
+        }
+    </script>
+
+</body>
+</html>
